@@ -4,9 +4,26 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
-    public int BosszombieHP = 80;
-    public int zombie1HP = 30;
-    public int zombie2HP = 50;
+    public int zombieHP = 30;
+    public int virus = 5;
+    public PlayerController playerController;
+
+    public int attackPower;
+    public float attackCurTime;
+
+    public GameObject targetPlayer;
+    public GameObject playerFollow;
+    public GameObject playerAttack;
+    public enum ZOMBIESTATE
+    {
+        WALK,
+        RUN,
+        ATTACK,
+        DIE
+    }
+    public ZOMBIESTATE zombieState;
+    public Animator zombieAnim;//좀비 상태에 따른 애니메이터
+    private bool isDead = false;
 
 
 
@@ -24,18 +41,62 @@ public class ZombieController : MonoBehaviour
         transform.position = GetRandomPosition();
         // 좀비가 처음 움직일 목표 위치를 설정합니다.
         targetPosition = GetRandomPosition();
+        zombieAnim = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
     }
 
     void Update()
-    {
-        // 목표 위치에 도달했는지 확인하고 새로운 목표 위치를 설정합니다.
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-        {
-            targetPosition = GetRandomPosition();
-        }
+    {      
+        zombieAnim.SetInteger("ZOMBIESTATE", (int)zombieState);
 
-        // 새로운 목표 위치로 좀비를 움직입니다.
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        switch (zombieState)
+        {
+            case ZOMBIESTATE.WALK:
+                if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+                {
+                    targetPosition = GetRandomPosition();
+                }
+
+                // 새로운 목표 위치로 좀비를 움직입니다.
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+                if (playerFollow.CompareTag("Player"))
+                {
+                    zombieState = ZOMBIESTATE.RUN;
+                }
+                break;
+            case ZOMBIESTATE.RUN:
+                if(playerAttack.CompareTag("Player"))
+                {
+                    zombieState = ZOMBIESTATE.ATTACK;
+                }
+                break;
+            case ZOMBIESTATE.ATTACK:                
+                if (targetPlayer != null)
+                {
+                    transform.LookAt(targetPlayer.transform);
+                    zombieAnim.SetBool("Attack", true);
+                }
+                playerController.Damaged(attackPower);
+                break;
+            case ZOMBIESTATE.DIE:               
+                isDead = true;
+                zombieAnim.SetBool("Dead", true);
+                Destroy(this.gameObject);  
+                break;
+        }
+    }
+    
+    public void Damage(int playerPower)
+    {
+        if(isDead == false)
+        {
+            zombieHP -= playerPower;
+            if (zombieHP <= 0)
+            {
+                zombieState = ZOMBIESTATE.DIE; 
+            }
+        }
     }
 
     // 주어진 사각형 범위 내에서 랜덤한 위치를 반환하는 함수

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MapDivider : MonoBehaviour
 {
     public Transform player; // 플레이어의 Transform
+    public GameObject playerPrefab; // 플레이어 프리팹
 
     // 지도의 가로 및 세로 길이
     public float mapWidth = 500f;
@@ -22,6 +23,7 @@ public class MapDivider : MonoBehaviour
     {
         // 경계를 랜덤으로 설정
         SetRandomBoundaries();
+        SpawnPlayerInCleanArea();
     }
 
     void Update()
@@ -63,6 +65,13 @@ public class MapDivider : MonoBehaviour
             CleanBoundary = new Vector3(Random.Range(-mapWidth / 2f, mapWidth / 2f), 0, Random.Range(-mapHeight / 2f, mapHeight / 2f));
         }
         while (Vector3.Distance(BossBoundary, CleanBoundary) < circleRadius1 + circleRadius2); // 경계가 겹치지 않도록 반복
+    }
+
+    void SpawnPlayerInCleanArea()
+    {
+        // 클린 구역 내에서 랜덤한 위치에 플레이어 생성
+        Vector3 randomPosition = new Vector3(Random.Range(CleanBoundary.x - circleRadius2, CleanBoundary.x + circleRadius2), 0, Random.Range(CleanBoundary.z - circleRadius2, CleanBoundary.z + circleRadius2));
+        Instantiate(playerPrefab, randomPosition, Quaternion.identity);
     }
 }
 

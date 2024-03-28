@@ -118,6 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469a3282c88711d42af1567706e97611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZombiePrefabs: {fileID: 8404831279607758694, guid: 51b4f4390684fcc47a9fafda91d7c759, type: 3}
+  ZombiePrefabs: {fileID: 4785514553520440976, guid: 51b4f4390684fcc47a9fafda91d7c759, type: 3}
   curTime: 0
   coolTime: 2
