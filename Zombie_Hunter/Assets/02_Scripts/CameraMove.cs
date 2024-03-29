@@ -7,7 +7,7 @@ public class CameraMove : MonoBehaviour
     public Transform player; // 플레이어의 Transform 컴포넌트
 
     // 카메라와 플레이어 간의 초기 거리와 각도
-    public Vector3 cameraOffset = new Vector3(0f, 10f, -10f);
+    public Vector3 cameraOffset = new Vector3(0f, 15f, -15f);
 
     // 카메라 이동 속도
     public float smoothSpeed = 0.125f;
@@ -24,7 +24,7 @@ public class CameraMove : MonoBehaviour
 
             // 카메라를 원하는 위치로 이동
             transform.position = smoothedPosition;
-            
+
         }
         else
         {

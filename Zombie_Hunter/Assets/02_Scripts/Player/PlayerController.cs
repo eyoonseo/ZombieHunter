@@ -14,12 +14,13 @@ public class PlayerController : MonoBehaviour
     public int posion=0;
     public ZombieController zombieController;
 
-    public GameObject iconPanel;
+    private Vector3 cleanBoundaryPosition;
 
     public enum PLAYERSTATE
     {
+        IDLE,
         WALK,
-        QUIETWALk,
+        QUIETWALK,
         ATTACK,
         DIE
     }
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     {
         zombieController = GetComponent<ZombieController>();
     }
+
+
     void Update()
     {        
         float h = Input.GetAxis("Horizontal");
@@ -83,9 +86,12 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetInteger("PLAYERSTATE", (int)playerState);
         switch (playerState)
         {
+            case PLAYERSTATE.IDLE:
+
+                break;
             case PLAYERSTATE.WALK:
                 break;
-            case PLAYERSTATE.QUIETWALk:
+            case PLAYERSTATE.QUIETWALK:
                 break;
             case PLAYERSTATE.ATTACK:
                 playerAnim.SetBool("Hunt", true);
@@ -94,13 +100,6 @@ public class PlayerController : MonoBehaviour
                 playerAnim.SetBool("Die", true);
                 break;
         }
-
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            // iconPanel이 활성화되어 있으면 비활성화, 비활성화되어 있으면 활성화
-            iconPanel.SetActive(!iconPanel.activeSelf);
-        }
-
     }
 
     public void Damaged(int attackPower)
@@ -123,7 +122,9 @@ public class PlayerController : MonoBehaviour
             zombieController.zombieHP -= playerPower;
         }
     }
- 
+
+    
+
 }
     
 

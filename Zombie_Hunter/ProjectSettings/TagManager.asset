@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Zombie
   - ICON_WINDOW
+  - ZombieSpot
   layers:
   - Default
   - TransparentFX

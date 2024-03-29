@@ -12,8 +12,8 @@ public class MapDivider : MonoBehaviour
     public float mapHeight = 500f;
 
     // 세 개의 지역을 나타내는 경계 값
-    private Vector3 BossBoundary; // 벡터로 변경
-    private Vector3 CleanBoundary; // 벡터로 변경
+    public Vector3 BossBoundary; // 벡터로 변경
+    public Vector3 CleanBoundary; // 벡터로 변경
 
     // 원형 지역을 표시하는 반지름
     public float circleRadius1 = 40f;
@@ -70,7 +70,7 @@ public class MapDivider : MonoBehaviour
     void SpawnPlayerInCleanArea()
     {
         // 클린 구역 내에서 랜덤한 위치에 플레이어 생성
-        Vector3 randomPosition = new Vector3(Random.Range(CleanBoundary.x - circleRadius2, CleanBoundary.x + circleRadius2), 0, Random.Range(CleanBoundary.z - circleRadius2, CleanBoundary.z + circleRadius2));
+        Vector3 randomPosition = new Vector3(Random.Range(CleanBoundary.x - circleRadius2, CleanBoundary.x + circleRadius2), 1f, Random.Range(CleanBoundary.z - circleRadius2, CleanBoundary.z + circleRadius2));
         Instantiate(playerPrefab, randomPosition, Quaternion.identity);
     }
 }
