@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static ZombieController;
 
 public class PlayerController : MonoBehaviour
@@ -10,26 +11,30 @@ public class PlayerController : MonoBehaviour
     private float xlimit = 249;
     private float zlimit = 249;
     public int playerHP = 100;
+
+    public Slider HPbar;
+
     public int playerPower;
     public int posion=0;
     public ZombieController zombieController;
 
     private Vector3 cleanBoundaryPosition;
 
-    public enum PLAYERSTATE
-    {
-        IDLE,
-        WALK,
-        QUIETWALK,
-        ATTACK,
-        DIE
-    }
-    public PLAYERSTATE playerState;
+    //public enum PLAYERSTATE
+    //{
+    //    IDLE,
+    //    WALK,
+    //    QUIETWALK,
+    //    ATTACK,
+    //    DIE
+    //}
+    //public PLAYERSTATE playerState;
     public Animator playerAnim;
 
     public void Start()
     {
         zombieController = GetComponent<ZombieController>();
+        //playerAnim = GetComponent<Animator>();
     }
 
 
@@ -37,6 +42,9 @@ public class PlayerController : MonoBehaviour
     {        
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
+
+        if(CompareTag("Map"))
+        playerAnim.SetTrigger("Basic_Walk");
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -83,45 +91,65 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        playerAnim.SetInteger("PLAYERSTATE", (int)playerState);
-        switch (playerState)
-        {
-            case PLAYERSTATE.IDLE:
+        //playerAnim.SetInteger("PLAYERSTATE", (int)playerState);
+        //switch (playerState)
+        //{
+        //    case PLAYERSTATE.IDLE:
 
-                break;
-            case PLAYERSTATE.WALK:
-                break;
-            case PLAYERSTATE.QUIETWALK:
-                break;
-            case PLAYERSTATE.ATTACK:
-                playerAnim.SetBool("Hunt", true);
-                break;
-            case PLAYERSTATE.DIE:
-                playerAnim.SetBool("Die", true);
-                break;
-        }
+        //        break;
+        //    case PLAYERSTATE.WALK:
+        //        break;
+        //    case PLAYERSTATE.QUIETWALK:
+        //        break;
+        //    case PLAYERSTATE.ATTACK:
+        //        playerAnim.SetBool("Hunt", true);
+        //        break;
+        //    case PLAYERSTATE.DIE:
+        //        playerAnim.SetBool("Die", true);
+        //        break;
+        //}
     }
 
-    public void Damaged(int attackPower)
+    private void OnTriggerEnter(Collider other)
     {
-        if (CompareTag("Zombie"))
-        {
-            playerHP -= attackPower;
-            posion += zombieController.virus;
-            if(posion == 100)
-            {
-                    playerState = PLAYERSTATE.DIE;
-            }
-        }
+        Damaged();
     }
 
-    public void Attack()
+    //public void Damaged(int attackPower)
+    //{
+    //    if (CompareTag("Zombie"))
+    //    {
+    //        playerHP -= attackPower;
+    //        posion += zombieController.virus;
+    //        if(posion == 100)
+    //        {
+    //               // playerState = PLAYERSTATE.DIE;
+    //        }
+    //    }
+    //}
+
+    void Damaged()
     {
-        if (CompareTag("Zombie"))
+        if (playerHP > 0)
         {
-            zombieController.zombieHP -= playerPower;
+            if (CompareTag("Zombie"))
+                playerHP -= 10;
+            if (CompareTag("Boss"))
+                playerHP -= 20;
+        }
+        else
+        {
+            Destroy(gameObject);
+            GameOver();
         }
     }
+    void GameOver()
+    {
+        Debug.Log("게임 오버!");
+        // 여기에 게임 오버 상태에 관련된 처리를 추가할 수 있습니다.
+    }
+
+    
 
     
 

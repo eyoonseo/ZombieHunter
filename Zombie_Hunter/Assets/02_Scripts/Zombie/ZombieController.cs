@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ZombieController : MonoBehaviour
 {
     public int zombieHP = 30;
     public int virus = 5;
-    public PlayerController playerController;
+    private PlayerController playerController;
+    private WeaponMgr weaponMgr;
 
     public int attackPower;
     public float attackCurTime;
@@ -14,16 +17,19 @@ public class ZombieController : MonoBehaviour
     public GameObject targetPlayer;
     public GameObject playerFollow;
     public GameObject playerAttack;
-    public enum ZOMBIESTATE
-    {
-        WALK,
-        RUN,
-        ATTACK,
-        DIE
-    }
-    public ZOMBIESTATE zombieState;
-    public Animator zombieAnim;//좀비 상태에 따른 애니메이터
-    private bool isDead = false;
+
+    public Slider LVbar;
+
+    //public enum ZOMBIESTATE
+    //{
+    //   WALK,
+    //    RUN,
+    //    ATTACK,
+    //    DIE
+    //}
+    //public ZOMBIESTATE zombieState;
+    //public Animator zombieAnim;//좀비 상태에 따른 애니메이터
+    //private bool isDead = false;
 
 
 
@@ -37,66 +43,99 @@ public class ZombieController : MonoBehaviour
 
     void Start()
     {
+        weaponMgr = FindObjectOfType<WeaponMgr>();
         // 좀비의 초기 위치를 랜덤하게 지정합니다.
         transform.position = GetRandomPosition();
         // 좀비가 처음 움직일 목표 위치를 설정합니다.
         targetPosition = GetRandomPosition();
-        zombieAnim = GetComponent<Animator>();
+        //zombieAnim = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
     }
 
     void Update()
-    {      
-        zombieAnim.SetInteger("ZOMBIESTATE", (int)zombieState);
-
-        switch (zombieState)
-        {
-            case ZOMBIESTATE.WALK:
-                if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-                {
-                    targetPosition = GetRandomPosition();
-                }
-
-                // 새로운 목표 위치로 좀비를 움직입니다.
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-
-                if (playerFollow.CompareTag("Player"))
-                {
-                    zombieState = ZOMBIESTATE.RUN;
-                }
-                break;
-            case ZOMBIESTATE.RUN:
-                if(playerAttack.CompareTag("Player"))
-                {
-                    zombieState = ZOMBIESTATE.ATTACK;
-                }
-                break;
-            case ZOMBIESTATE.ATTACK:                
-                if (targetPlayer != null)
-                {
-                    transform.LookAt(targetPlayer.transform);
-                    zombieAnim.SetBool("Attack", true);
-                }
-                playerController.Damaged(attackPower);
-                break;
-            case ZOMBIESTATE.DIE:               
-                isDead = true;
-                zombieAnim.SetBool("Dead", true);
-                Destroy(this.gameObject);  
-                break;
-        }
-    }
-    
-    public void Damage(int playerPower)
     {
-        if(isDead == false)
+
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
-            zombieHP -= playerPower;
-            if (zombieHP <= 0)
-            {
-                zombieState = ZOMBIESTATE.DIE; 
-            }
+                    targetPosition = GetRandomPosition();
         }
+
+          // 새로운 목표 위치로 좀비를 움직입니다.
+          transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        //
+        //    zombieAnim.SetInteger("ZOMBIESTATE", (int)zombieState);
+
+        //    switch (zombieState)
+        //    {
+        //        case ZOMBIESTATE.WALK:
+        //            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        //            {
+        //                targetPosition = GetRandomPosition();
+        //            }
+
+        //            // 새로운 목표 위치로 좀비를 움직입니다.
+        //            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+        //            if (playerFollow.CompareTag("Player"))
+        //            {
+        //                zombieState = ZOMBIESTATE.RUN;
+        //            }
+        //            break;
+        //        case ZOMBIESTATE.RUN:
+        //            if(playerAttack.CompareTag("Player"))
+        //            {
+        //                zombieState = ZOMBIESTATE.ATTACK;
+        //            }
+        //            break;
+        //        case ZOMBIESTATE.ATTACK:                
+        //            if (targetPlayer != null)
+        //            {
+        //                transform.LookAt(targetPlayer.transform);
+        //                zombieAnim.SetBool("Attack", true);
+        //            }
+        //            playerController.Damaged(attackPower);
+        //            break;
+        //        case ZOMBIESTATE.DIE:               
+        //            isDead = true;
+        //            zombieAnim.SetBool("Dead", true);
+        //            Destroy(this.gameObject);  
+        //            break;
+        //    }
+        //}
+
+        //public void Damage(int playerPower)
+        //{
+        //    if(isDead == false)
+        //    {
+        //        zombieHP -= playerPower;
+        //        if (zombieHP <= 0)
+        //        {
+        //            zombieState = ZOMBIESTATE.DIE; 
+        //        }
+        //    }
+    
+    }
+
+    void Damaged()
+    {
+        int attack = 0;
+
+        // 태그에 따른 공격력 값을 가져옵니다.
+        if (gameObject.CompareTag("Spear"))
+        {
+            attack = weaponMgr.spearAttack;
+        }
+        else if (gameObject.CompareTag("Bow"))
+        {
+            attack = weaponMgr.bowAttack;
+        }
+        else if (gameObject.CompareTag("Gun"))
+        {
+            attack = weaponMgr.gunAttack;
+        }
+
+        // 좀비의 HP를 공격력만큼 감소시킵니다.
+        zombieHP -= attack;
     }
 
     // 주어진 사각형 범위 내에서 랜덤한 위치를 반환하는 함수
