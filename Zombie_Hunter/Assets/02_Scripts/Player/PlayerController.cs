@@ -29,12 +29,13 @@ public class PlayerController : MonoBehaviour
     //    DIE
     //}
     //public PLAYERSTATE playerState;
-    public Animator playerAnim;
+
+    public Animator Basic;
 
     public void Start()
     {
         zombieController = GetComponent<ZombieController>();
-        //playerAnim = GetComponent<Animator>();
+        Basic = GetComponentInChildren<Animator>(); //자식객체
     }
 
 
@@ -43,8 +44,14 @@ public class PlayerController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if(CompareTag("Map"))
-        playerAnim.SetTrigger("Basic_Walk");
+        if (h != 0 || v != 0)
+        {
+            Basic.SetBool("Basic_Walk", true);
+        }
+        else
+        {
+            Basic.SetBool("Basic_Walk", false);
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -148,11 +155,4 @@ public class PlayerController : MonoBehaviour
         Debug.Log("게임 오버!");
         // 여기에 게임 오버 상태에 관련된 처리를 추가할 수 있습니다.
     }
-
-    
-
-    
-
 }
-    
-
