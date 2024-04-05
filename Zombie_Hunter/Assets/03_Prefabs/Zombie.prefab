@@ -134,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 4785514553520440976}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.8, y: 0, z: 0}
+  m_LocalPosition: {x: -6.8, y: 1, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,12 +229,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieHP: 30
   virus: 5
-  playerController: {fileID: 6765371790037006651, guid: 3dd60244e0cd97b448d105ef2aa17e53, type: 3}
   attackPower: 0
   attackCurTime: 0
-  targetPlayer: {fileID: 8445578346198822306, guid: 3dd60244e0cd97b448d105ef2aa17e53, type: 3}
+  targetPlayer: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
   playerFollow: {fileID: 8300599943612986884}
   playerAttack: {fileID: 82369139810810246}
+  LVbar: {fileID: 0}
   minX: -249
   minZ: -249
   maxX: 249

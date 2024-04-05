@@ -9,7 +9,7 @@ public class ZombieController : MonoBehaviour
     public int zombieHP = 30;
     public int virus = 5;
     private PlayerController playerController;
-    private WeaponMgr weaponMgr;
+    
 
     public int attackPower;
     public float attackCurTime;
@@ -43,7 +43,6 @@ public class ZombieController : MonoBehaviour
 
     void Start()
     {
-        weaponMgr = FindObjectOfType<WeaponMgr>();
         // 좀비의 초기 위치를 랜덤하게 지정합니다.
         transform.position = GetRandomPosition();
         // 좀비가 처음 움직일 목표 위치를 설정합니다.
@@ -116,28 +115,7 @@ public class ZombieController : MonoBehaviour
     
     }
 
-    void Damaged()
-    {
-        int attack = 0;
-
-        // 태그에 따른 공격력 값을 가져옵니다.
-        if (gameObject.CompareTag("Spear"))
-        {
-            attack = weaponMgr.spearAttack;
-        }
-        else if (gameObject.CompareTag("Bow"))
-        {
-            attack = weaponMgr.bowAttack;
-        }
-        else if (gameObject.CompareTag("Gun"))
-        {
-            attack = weaponMgr.gunAttack;
-        }
-
-        // 좀비의 HP를 공격력만큼 감소시킵니다.
-        zombieHP -= attack;
-    }
-
+   
     // 주어진 사각형 범위 내에서 랜덤한 위치를 반환하는 함수
     private Vector3 GetRandomPosition()
     {

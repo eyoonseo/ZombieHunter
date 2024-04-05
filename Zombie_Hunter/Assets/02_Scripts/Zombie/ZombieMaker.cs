@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ZombieMaker : MonoBehaviour
 {
+    public Transform zombieSpot;
     public GameObject ZombiePrefabs;
 
     public float curTime = 0;
