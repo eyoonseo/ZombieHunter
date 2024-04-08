@@ -131,13 +131,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3517747285645138098, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -149.8
       objectReference: {fileID: 0}
     - target: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -172,9 +176,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6765371790037006651, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+      propertyPath: LV
+      value: 
+      objectReference: {fileID: 286508817}
+    - target: {fileID: 6765371790037006651, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+      propertyPath: LVbar
+      value: 
+      objectReference: {fileID: 2134508573}
+    - target: {fileID: 6765371790037006651, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1966150921}
+    - target: {fileID: 6765371790037006651, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+      propertyPath: Posionbar
+      value: 
+      objectReference: {fileID: 1443085877}
     - target: {fileID: 6765371790037006651, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: weapons.Array.size
       value: 0
@@ -193,6 +209,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+--- !u!4 &13468967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 447564287787664962, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+  m_PrefabInstance: {fileID: 13468966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &13468968 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 879173903857268443, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+  m_PrefabInstance: {fileID: 13468966}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &27363614
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,8 +598,8 @@ Transform:
   m_GameObject: {fileID: 122514410}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 50}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 30, y: 1, z: 30}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1799446944}
@@ -592,8 +618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1966150921}
-  mapWidth: 500
-  mapHeight: 500
+  mapWidth: 300
+  mapHeight: 300
   BossBoundary: {x: 0, y: 0, z: 0}
   CleanBoundary: {x: 0, y: 0, z: 0}
   circleRadius1: 40
@@ -707,10 +733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombieSpot: {fileID: 4447119873770265934, guid: e32d72fc9d3eae94dbf4391fd5553389, type: 3}
-  minSpots: 30
-  maxSpots: 50
-  mapWidth: 500
-  mapHeight: 500
+  minSpots: 20
+  maxSpots: 40
+  mapWidth: 300
+  mapHeight: 300
   spotRadius: 10
 --- !u!4 &289192710
 Transform:
@@ -1631,8 +1657,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BosszombieSpot: {fileID: 4447119873770265934, guid: 1209cd737fdd82748b5d570d581003bf, type: 3}
-  minSpots: 5
-  maxSpots: 10
+  minSpots: 7
+  maxSpots: 12
 --- !u!4 &1257759595
 Transform:
   m_ObjectHideFlags: 0
@@ -1695,7 +1721,11 @@ MonoBehaviour:
   spearPrefab: {fileID: 2350366144217043346, guid: 8f2b838937bf3ce499fe912cc972a648, type: 3}
   bowPrefab: {fileID: 2282603997003878875, guid: 4b9d13ef294ef4b498abf6c7bca14421, type: 3}
   gunPrefab: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
+  arrowPrefab: {fileID: 1617419906277601818, guid: 2c925e2fb6d1cac428d146a97a34f6d3, type: 3}
+  arrowcase: {fileID: 100000, guid: 3bf4320244258c0448bc784dfe221cc5, type: 3}
   weaponPosition: {fileID: 1465951671}
+  arrowPosition: {fileID: 13468967}
+  arrowcasePosition: {fileID: 13468968}
   spearAttack: 0
   bowAttack: 0
   gunAttack: 0
@@ -1729,7 +1759,7 @@ GameObject:
   - component: {fileID: 1443085876}
   - component: {fileID: 1443085877}
   m_Layer: 5
-  m_Name: Virus
+  m_Name: Posion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1846,8 +1876,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_AnchoredPosition: {x: -2.5, y: -0.0000009536743}
+  m_SizeDelta: {x: 5, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1505483718
 MonoBehaviour:
@@ -2978,8 +3008,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120, y: -40}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -122.103676, y: -40}
+  m_SizeDelta: {x: 190, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2134508573
 MonoBehaviour:
@@ -3027,8 +3057,8 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 100
-  m_WholeNumbers: 0
-  m_Value: 0
+  m_WholeNumbers: 1
+  m_Value: 100
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

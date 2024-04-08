@@ -7,30 +7,23 @@ using static ZombieController;
 public class PlayerController : MonoBehaviour
 {    
     public float moveSpeed = 10f;
-    private float xlimit = 249;
-    private float zlimit = 249;
+    private float xlimit = 149;
+    private float zlimit = 149;
     public int playerHP = 100;
 
     public List<Weapon> weapons; // 무기를 저장할 리스트(List) 변수 선언
     private int currentWeaponIndex = 0; // 현재 선택된 무기의 인덱스를 나타내는 변수 선언 및 초기화
 
     public Slider HPbar;
+    public Slider LVbar;
+    public Slider Posionbar;
+
+    public Text LV;
 
     public int playerPower;
-    public int posion=0;
     public ZombieController zombieController;
 
     private Vector3 cleanBoundaryPosition;
-
-    //public enum PLAYERSTATE
-    //{
-    //    IDLE,
-    //    WALK,
-    //    QUIETWALK,
-    //    ATTACK,
-    //    DIE
-    //}
-    //public PLAYERSTATE playerState;
 
     public Animator Basic;
     public void Start()
@@ -83,33 +76,23 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        // 마우스 왼쪽 버튼을 누르면 공격 애니메이션을 실행
+        if (Input.GetMouseButtonDown(0) && CompareTag("Spear"))
         {
-            Basic.SetBool("Spear_Att", true);
-            Attack();
+                Basic.SetInteger("Att", 1);
+            
         }
-        else 
+        if (Input.GetMouseButtonDown(0) && CompareTag("Bow"))
         {
-            Basic.SetBool("Spear_Att", false);
+                Basic.SetInteger("Att", 2);               
         }
-        //playerAnim.SetInteger("PLAYERSTATE", (int)playerState);
-        //switch (playerState)
-        //{
-        //    case PLAYERSTATE.IDLE:
-
-        //        break;
-        //    case PLAYERSTATE.WALK:
-        //        break;
-        //    case PLAYERSTATE.QUIETWALK:
-        //        break;
-        //    case PLAYERSTATE.ATTACK:
-        //        playerAnim.SetBool("Hunt", true);
-        //        break;
-        //    case PLAYERSTATE.DIE:
-        //        playerAnim.SetBool("Die", true);
-        //        break;
-        //}
+        if (Input.GetMouseButtonDown(0) && CompareTag("Gun"))
+        {
+                Basic.SetInteger("Att", 3);
+        }
+       
     }
+
     void Attack()
     {
         if (weapons.Count == 0)

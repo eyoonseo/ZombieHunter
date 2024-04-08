@@ -7,10 +7,10 @@ public class ZombieSpot : MonoBehaviour
     public GameObject zombieSpot;
     
 
-    public int minSpots = 40; // 최소 스팟 수
-    public int maxSpots = 50; // 최대 스팟 수
-    public float mapWidth = 500f; // 지도의 가로 길이
-    public float mapHeight = 500f; // 지도의 세로 길이
+    public int minSpots = 20; // 최소 스팟 수
+    public int maxSpots = 40; // 최대 스팟 수
+    public float mapWidth = 300f; // 지도의 가로 길이
+    public float mapHeight = 300f; // 지도의 세로 길이
     public float spotRadius = 10f; // 스팟 간 최소 거리
 
     

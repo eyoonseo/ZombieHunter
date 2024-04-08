@@ -27,7 +27,7 @@ public class ZombieMaker : MonoBehaviour
 
     void MakeZombie()
     {
-        Instantiate(ZombiePrefabs, transform.position, transform.rotation);
+        Instantiate(ZombiePrefabs, zombieSpot.transform.position, zombieSpot.transform.rotation);
     }
 
     public void RandomCoolTime()

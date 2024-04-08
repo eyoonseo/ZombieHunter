@@ -7,8 +7,8 @@ public class MapDivider : MonoBehaviour
     public Transform player; // 플레이어의 Transform
     
     // 지도의 가로 및 세로 길이
-    public float mapWidth = 500f;
-    public float mapHeight = 500f;
+    public float mapWidth = 300f;
+    public float mapHeight = 300f;
 
     // 세 개의 지역을 나타내는 경계 값
     public Vector3 BossBoundary; // 벡터로 변경
@@ -22,7 +22,7 @@ public class MapDivider : MonoBehaviour
     {
         // 경계를 랜덤으로 설정
         SetRandomBoundaries();
-        player.position = new Vector3 (CleanBoundary.x,1, CleanBoundary.z);
+        player.position = new Vector3 (CleanBoundary.x,0, CleanBoundary.z);
     }
 
     void Update()

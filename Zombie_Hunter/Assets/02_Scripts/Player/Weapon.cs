@@ -8,8 +8,12 @@ public class Weapon : MonoBehaviour
     public GameObject spearPrefab;
     public GameObject bowPrefab;
     public GameObject gunPrefab;
+    public GameObject arrowPrefab;
+    public GameObject arrowcase;
 
     public Transform weaponPosition;
+    public Transform arrowPosition;
+    public Transform arrowcasePosition;
     private GameObject currentWeapon;
 
     private int spearAttackIncrement = 5;
@@ -36,21 +40,22 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         // 1번 키를 눌렀을 때 spear를 생성합니다.
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha1))
         {
-            SetWeapon(spearPrefab);         
+            SetWeapon(spearPrefab);
         }
 
         // 2번 키를 눌렀을 때 bow를 생성합니다.
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.Alpha2))
         {
             SetWeapon(bowPrefab);
-        }
-
+            Instantiate(arrowPrefab,arrowPosition);
+            Instantiate(arrowcase, arrowcasePosition);
+        }           
         // 3번 키를 눌렀을 때 gun을 생성합니다.
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.Alpha3))
         {
-            SetWeapon(gunPrefab);
+            SetWeapon(gunPrefab);      
         }
     }
     private void OnTriggerEnter(Collider other)

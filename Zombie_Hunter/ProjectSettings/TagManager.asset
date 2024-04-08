@@ -9,6 +9,9 @@ TagManager:
   - ZombieSpot
   - Boss
   - Map
+  - Bow
+  - Spear
+  - Gun
   layers:
   - Default
   - TransparentFX
