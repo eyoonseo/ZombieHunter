@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 2428662842079074001}
   - component: {fileID: 8425678530894162181}
   - component: {fileID: 6144162535505087959}
-  - component: {fileID: 2526596768358929230}
+  - component: {fileID: 981919297386109444}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Zombie
@@ -192,7 +192,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2526596768358929230
+--- !u!114 &981919297386109444
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,8 +206,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieHP: 30
   virus: 5
-  attackPower: 0
-  attackCurTime: 0
+  attackPower: 10
+  attackCurTime: 1
+  zombie: {fileID: 4785514553520440976}
   targetPlayer: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
   playerFollow: {fileID: 8300599943612986884}
   playerAttack: {fileID: 82369139810810246}
@@ -217,7 +218,7 @@ MonoBehaviour:
   minZ: -149
   maxX: 149
   maxZ: 149
-  moveSpeed: 0.7
+  moveSpeed: 0.5
 --- !u!1 &8300599943612986884
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +404,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114062226022497710, guid: a8145fd98e506094980d05080bde9072, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

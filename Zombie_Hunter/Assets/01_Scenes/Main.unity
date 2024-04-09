@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -149.8
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -207,7 +207,10 @@ PrefabInstance:
     - {fileID: 704013871072886921, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1994769074}
   m_SourcePrefab: {fileID: 100100000, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
 --- !u!4 &13468967 stripped
 Transform:
@@ -2615,6 +2618,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4015176091587100568, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
   m_PrefabInstance: {fileID: 13468966}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1994769069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
+  m_PrefabInstance: {fileID: 13468966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1994769074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994769069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 752acb2d8e71d894d8710c735802945c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 100
+  playerBody: {fileID: 1966150921}
 --- !u!1 &2019067331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,7 +2753,8 @@ MonoBehaviour:
   HPbar: {fileID: 1441343025}
   LVbar: {fileID: 2134508573}
   Virusbar: {fileID: 1443085877}
-  Time: {fileID: 36010333}
+  Timetxt: {fileID: 36010333}
+  curTime: 0
   Day: {fileID: 2019067333}
   LV: {fileID: 286508817}
 --- !u!4 &2030270577
@@ -3058,7 +3081,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Slider = UnityEngine.UI.Slider;
 
 public class ZombieController : MonoBehaviour
 {
@@ -14,9 +16,14 @@ public class ZombieController : MonoBehaviour
     public int attackPower;
     public float attackCurTime;
 
+    public GameObject zombie;
     public GameObject targetPlayer;
     public GameObject playerFollow;
     public GameObject playerAttack;
+    public GameObject potionPrefab;
+    public GameObject bandagePrefab;
+    public GameObject aidkitPrefab;
+    public GameObject medicationPrefab;
 
     public Slider Hpbar;
     
@@ -47,31 +54,66 @@ public class ZombieController : MonoBehaviour
 
     void Update()
     {
-
+        
         if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
                     targetPosition = GetRandomPosition();
         }
 
           // 새로운 목표 위치로 좀비를 움직입니다.
-          transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime); 
+          transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+
     }
 
-    void Run()
+    private void OnTriggerEnter(Collider other)
     {
-        if (playerFollow.CompareTag("Player"))
-        {
-            moveSpeed *= 2;
+        if (zombieHP <= 0)
+        { 
+            zombieAnim.SetTrigger("DIE");
+            Destroy(zombie.gameObject);
+            SpawnRandomItem();
         }
-    }
-    void Attack()
-    {
-        if(playerAttack.CompareTag("Player"))
+        else
+        {
+            switch (other.gameObject.tag)
+            {
+                case "Spear":
+                    zombieHP -= 10;
+                    break;
+                case "Bow":
+                    zombieHP -= 15;
+                    break;
+                case "Gun":
+                    zombieHP -= 20;
+                    break;
+
+            }
+        }
+        if (playerFollow.gameObject.tag == "Player")
+        {
+            zombieAnim.speed *= 2;
+        }
+        if (playerAttack.gameObject.tag == "Player")
         {
             zombieAnim.SetTrigger("Attack");
-            Hpbar.value -= 10;
         }
     }
+
+    public void SpawnRandomItem()
+    {
+        // 아이템 배열 생성
+        GameObject[] items = { potionPrefab, bandagePrefab, aidkitPrefab, medicationPrefab };
+
+        // 랜덤한 아이템 선택
+        GameObject randomItem = items[Random.Range(0, items.Length)];
+
+        
+         
+        Instantiate(randomItem,zombie.transform.position, Quaternion.identity);
+    }
+
+
     // 주어진 사각형 범위 내에서 랜덤한 위치를 반환하는 함수
     private Vector3 GetRandomPosition()
     {

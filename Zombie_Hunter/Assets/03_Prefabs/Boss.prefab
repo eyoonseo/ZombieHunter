@@ -204,10 +204,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108add527d535f14cbd3a3e0f98d979f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombieHP: 30
-  virus: 5
-  attackPower: 0
-  attackCurTime: 0
+  zombieHP: 50
+  virus: 10
+  attackPower: 30
+  attackCurTime: 1.5
+  zombie: {fileID: 4785514553520440976}
   targetPlayer: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
   playerFollow: {fileID: 8300599943612986884}
   playerAttack: {fileID: 82369139810810246}
@@ -399,7 +400,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114062226022497710, guid: a8145fd98e506094980d05080bde9072, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

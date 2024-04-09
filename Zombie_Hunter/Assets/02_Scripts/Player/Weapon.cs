@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Weapon : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class Weapon : MonoBehaviour
     public Transform weaponPosition;
     public Transform arrowPosition;
     public Transform arrowcasePosition;
-    private GameObject currentWeapon;
+    public GameObject currentWeapon;
+    public GameObject currentArrow;
+    public GameObject currentArrowcase;
 
     private int spearAttackIncrement = 5;
     private int bowAttackIncrement = 5;
@@ -49,8 +52,8 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha2))
         {
             SetWeapon(bowPrefab);
-            Instantiate(arrowPrefab,arrowPosition);
-            Instantiate(arrowcase, arrowcasePosition);
+            currentArrow=Instantiate(arrowPrefab,arrowPosition);
+            currentArrowcase=Instantiate(arrowcase, arrowcasePosition);
         }           
         // 3번 키를 눌렀을 때 gun을 생성합니다.
         if (Input.GetKey(KeyCode.Alpha3))
@@ -71,17 +74,16 @@ public class Weapon : MonoBehaviour
         }
     }
 
+
     private void SetWeapon(GameObject weaponPrefab)
     {
         // 현재 무기를 비활성화합니다.
-        if (currentWeapon != null)
-        {
-            currentWeapon.SetActive(false);
-        }
+        Destroy(currentWeapon);
+        Destroy(currentArrow);
+        Destroy(currentArrowcase);
 
         // 새로운 무기를 활성화하고 위치를 설정합니다.
         currentWeapon = Instantiate(weaponPrefab, weaponPosition.position, weaponPrefab.transform.rotation, weaponPosition);
-        currentWeapon.SetActive(true);
     }
     private void UpgradeWeaponAttack()
     {
