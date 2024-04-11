@@ -454,7 +454,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4294846522069697032}
   - component: {fileID: 7888741927706990706}
-  - component: {fileID: 4449498811772129056}
   m_Layer: 0
   m_Name: Male
   m_TagString: Untagged
@@ -500,27 +499,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &4449498811772129056
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3517747285645138098}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.42439312, y: 1.3722701, z: 0.3349151}
-  m_Center: {x: 0.003740748, y: 0.6588023, z: -0.014415583}
 --- !u!1 &3751065528102776879
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +969,7 @@ GameObject:
   - component: {fileID: 8962261276875060558}
   - component: {fileID: 6765371790037006651}
   - component: {fileID: 482288523123140728}
+  - component: {fileID: 5255536876483165365}
   m_Layer: 0
   m_Name: Player_M
   m_TagString: Player
@@ -1077,8 +1056,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a6f3e1aa380a24a8b4af97d59c1b24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 0}
   moveSpeed: 10
   playerHP: 100
+  maxHP: 100
+  posion: 0
   weapons: []
   HPbar: {fileID: 8612222820035853781, guid: 0842524cd2733164fb4e5265b6c6cdd9, type: 3}
   LVbar: {fileID: 0}
@@ -1114,6 +1096,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &5255536876483165365
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8445578346198822306}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.578388, y: 2, z: 0.3496088}
+  m_Center: {x: 0.0007856637, y: 0, z: -0.0052288324}
 --- !u!1 &8846682946262476285
 GameObject:
   m_ObjectHideFlags: 0

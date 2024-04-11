@@ -10,6 +10,7 @@ public class ZombieController : MonoBehaviour
 {
     public int zombieHP = 30;
     public int virus = 5;
+    public float rotationSpeed = 100;
     private PlayerController playerController;
     
 
@@ -17,17 +18,16 @@ public class ZombieController : MonoBehaviour
     public float attackCurTime;
 
     public GameObject zombie;
-    public GameObject targetPlayer;
-    public GameObject playerFollow;
-    public GameObject playerAttack;
+    public Transform target;
     public GameObject potionPrefab;
     public GameObject bandagePrefab;
     public GameObject aidkitPrefab;
     public GameObject medicationPrefab;
 
     public Slider Hpbar;
-    
 
+    AttackPlayer attackPlayer;
+    FollowPlayer followPlayer;
    
     public Animator zombieAnim;//좀비 상태에 따른 애니메이터
     //private bool isDead = false;
@@ -50,6 +50,8 @@ public class ZombieController : MonoBehaviour
         targetPosition = GetRandomPosition();
         //zombieAnim = GetComponent<Animator>();
         playerController = GetComponent<PlayerController>();
+        attackPlayer = GetComponentInChildren<AttackPlayer>();
+        followPlayer = GetComponentInChildren<FollowPlayer>();
     }
 
     void Update()
@@ -90,14 +92,7 @@ public class ZombieController : MonoBehaviour
 
             }
         }
-        if (playerFollow.gameObject.tag == "Player")
-        {
-            zombieAnim.speed *= 2;
-        }
-        if (playerAttack.gameObject.tag == "Player")
-        {
-            zombieAnim.SetTrigger("Attack");
-        }
+    
     }
 
     public void SpawnRandomItem()

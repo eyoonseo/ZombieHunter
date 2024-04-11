@@ -14,6 +14,7 @@ public class GameMgr : MonoBehaviour
     public GameObject Hppanel;
     public GameObject Lvpanel;
     public GameObject Weaponpanel;
+    public GameObject escapeGatePrefab;
 
     public Slider HPbar;
     public Slider LVbar;
@@ -26,6 +27,8 @@ public class GameMgr : MonoBehaviour
 
     private int curHour = 0;
     private int daysPassed = 0;
+    private bool escapeGateCreated = false;
+
 
 
     void Start()
@@ -61,6 +64,16 @@ public class GameMgr : MonoBehaviour
             {
                 curHour -= 24;
                 daysPassed += 1;
+
+                if (daysPassed == 7)
+                {
+                    CreateEscapeGate();
+                    escapeGateCreated = true;
+                }
+                else
+                {
+                    escapeGateCreated = false;
+                }
             }
 
         }
@@ -77,6 +90,14 @@ public class GameMgr : MonoBehaviour
             LVbar.value = 0f;
             LVbar.maxValue += 20; // LVbar의 최대 값 증가
         }
+    }
+
+    void CreateEscapeGate()
+    {
+        float randomX = Random.Range(-30f, 30f);
+        float randomZ = Random.Range(-30f, 30f);
+        Vector3 randomPosition = new Vector3(randomX, 0f, randomZ);
+        Instantiate(escapeGatePrefab, randomPosition, Quaternion.identity);
     }
 
 }

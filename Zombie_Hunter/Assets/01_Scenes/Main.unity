@@ -1729,6 +1729,9 @@ MonoBehaviour:
   weaponPosition: {fileID: 1465951671}
   arrowPosition: {fileID: 13468967}
   arrowcasePosition: {fileID: 13468968}
+  currentWeapon: {fileID: 0}
+  currentArrow: {fileID: 0}
+  currentArrowcase: {fileID: 0}
   spearAttack: 0
   bowAttack: 0
   gunAttack: 0
@@ -2750,6 +2753,7 @@ MonoBehaviour:
   Hppanel: {fileID: 672546540}
   Lvpanel: {fileID: 2067749756}
   Weaponpanel: {fileID: 1802097382}
+  escapeGatePrefab: {fileID: 3064456455195016440, guid: 153ee7a8859469f45ba8817f582eda30, type: 3}
   HPbar: {fileID: 1441343025}
   LVbar: {fileID: 2134508573}
   Virusbar: {fileID: 1443085877}

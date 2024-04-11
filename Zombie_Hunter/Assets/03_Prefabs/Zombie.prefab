@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7677920049442904048}
   - component: {fileID: 7799696669679506304}
   - component: {fileID: 3333719840365008338}
+  - component: {fileID: 5456444495633239565}
   m_Layer: 0
   m_Name: PlayerAttack
   m_TagString: Untagged
@@ -28,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 82369139810810246}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 2, y: 0.0001, z: 2}
+  m_LocalPosition: {x: 0, y: -1, z: 0.76}
+  m_LocalScale: {x: 2.5, y: 0.0001, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2428662842079074001}
@@ -49,7 +50,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82369139810810246}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -99,12 +100,26 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5109655
   m_Center: {x: -0.0067931176, y: 488.6484, z: -0.0006268501}
+--- !u!114 &5456444495633239565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82369139810810246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a881857dedea04f8e44684a3e6fe24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombieController: {fileID: 0}
+  originspeed: 0
 --- !u!1 &4785514553520440976
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,12 +221,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieHP: 30
   virus: 5
+  rotationSpeed: 100
   attackPower: 10
   attackCurTime: 1
   zombie: {fileID: 4785514553520440976}
-  targetPlayer: {fileID: 8445578346198822306, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
-  playerFollow: {fileID: 8300599943612986884}
-  playerAttack: {fileID: 82369139810810246}
+  target: {fileID: 0}
+  potionPrefab: {fileID: 1860744496122594, guid: 0b4f2daea61c8c34bb57798b5b77e22d, type: 3}
+  bandagePrefab: {fileID: 1089726810798314, guid: f2eb86ba579ab5c4db54a92a8f0c3b7b, type: 3}
+  aidkitPrefab: {fileID: 1987713744733760, guid: b55df95fa6211964e8ad561501250fac, type: 3}
+  medicationPrefab: {fileID: 1985338178271116, guid: 48ec186542777474bb236dff1694340c, type: 3}
   Hpbar: {fileID: 8612222820035853781, guid: 0842524cd2733164fb4e5265b6c6cdd9, type: 3}
   zombieAnim: {fileID: 14468363898721305}
   minX: -149
@@ -231,6 +249,7 @@ GameObject:
   - component: {fileID: 1001924837361736463}
   - component: {fileID: 3667581841730515029}
   - component: {fileID: 6585360713640871736}
+  - component: {fileID: 20006843817282403}
   m_Layer: 0
   m_Name: PlayerFollow
   m_TagString: Untagged
@@ -247,7 +266,7 @@ Transform:
   m_GameObject: {fileID: 8300599943612986884}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 1.79}
   m_LocalScale: {x: 5, y: 0.001, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -268,7 +287,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8300599943612986884}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -318,12 +337,26 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5109655
   m_Center: {x: -0.0067931176, y: 488.6484, z: -0.0006268501}
+--- !u!114 &20006843817282403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300599943612986884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8240ad978e7c7e945ac1cb739f767b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombieController: {fileID: 0}
+  originspeed: 0
 --- !u!1001 &99218639828785329
 PrefabInstance:
   m_ObjectHideFlags: 0
