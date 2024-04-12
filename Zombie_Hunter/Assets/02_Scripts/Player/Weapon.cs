@@ -9,15 +9,18 @@ public class Weapon : MonoBehaviour
     public GameObject spearPrefab;
     public GameObject bowPrefab;
     public GameObject gunPrefab;
+    public GameObject bulletPrefab;
     public GameObject arrowPrefab;
     public GameObject arrowcase;
 
     public Transform weaponPosition;
     public Transform arrowPosition;
     public Transform arrowcasePosition;
+    public Transform bulletPosition;
     public GameObject currentWeapon;
     public GameObject currentArrow;
     public GameObject currentArrowcase;
+    public GameObject currentBullet;
 
     private int spearAttackIncrement = 5;
     private int bowAttackIncrement = 5;
@@ -32,6 +35,10 @@ public class Weapon : MonoBehaviour
     public string Weaponname;
     public int damage;
     public Animator Basic;
+
+    public int arrowcount = 15;
+    public int bulletcount = 30;
+    public bool isReloading = false;
 
     private void Start()
     {
@@ -52,14 +59,35 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha2))
         {
             SetWeapon(bowPrefab);
-            currentArrow=Instantiate(arrowPrefab,arrowPosition);
+            if (arrowcount > 0)
+            {
+                currentArrow = Instantiate(arrowPrefab, arrowPosition);
+                arrowcount--;
+                UpdateAmmoCount("Arrow",arrowcount);
+            }
+            else
+            {
+                ReloadAmmo("Arrow");
+            }
             currentArrowcase=Instantiate(arrowcase, arrowcasePosition);
         }           
         // 3번 키를 눌렀을 때 gun을 생성합니다.
         if (Input.GetKey(KeyCode.Alpha3))
         {
-            SetWeapon(gunPrefab);      
+            SetWeapon(gunPrefab);
+            if (bulletcount > 0)
+            {
+                currentBullet = Instantiate(bulletPrefab, bulletPosition);
+                bulletcount--;
+                UpdateAmmoCount("Bullet", arrowcount);
+            }
+            else
+            {
+                ReloadAmmo("Bullet");
+            }
         }
+
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -72,6 +100,22 @@ public class Weapon : MonoBehaviour
             // 무기의 공격력을 업그레이드합니다.
             UpgradeWeaponAttack();
         }
+        if (other.CompareTag("Bullet"))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Destroy(other.gameObject);
+                bulletcount++;
+            }
+        }
+        if (other.CompareTag("Arrow"))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Destroy(other.gameObject);
+                arrowcount++;
+            }
+        }
     }
 
 
@@ -81,6 +125,7 @@ public class Weapon : MonoBehaviour
         Destroy(currentWeapon);
         Destroy(currentArrow);
         Destroy(currentArrowcase);
+        Destroy(currentBullet);
 
         // 새로운 무기를 활성화하고 위치를 설정합니다.
         currentWeapon = Instantiate(weaponPrefab, weaponPosition.position, weaponPrefab.transform.rotation, weaponPosition);
@@ -102,6 +147,39 @@ public class Weapon : MonoBehaviour
         {
             Debug.Log("Max upgrade level reached.");
         }
+    }
+
+    void ReloadAmmo(string ammoType)
+    {
+        if (!isReloading)
+        {
+            StartCoroutine(ReloadAmmoCoroutine(ammoType));
+        }
+    }
+
+    private IEnumerator ReloadAmmoCoroutine(string ammoType)
+    {
+        isReloading = true;
+        Debug.Log("Reloading " + ammoType + "...");
+        yield return new WaitForSeconds(2f); // 재장전 시간
+        if (ammoType == "Arrow")
+        {
+            arrowcount = 10; // 재장전 후 초기화
+            UpdateAmmoCount(ammoType, arrowcount);
+        }
+        else if (ammoType == "Bullet")
+        {
+            bulletcount = 30; // 재장전 후 초기화
+            UpdateAmmoCount(ammoType, bulletcount);
+        }
+        isReloading = false;
+        Debug.Log(ammoType + " reloaded.");
+    }
+
+    private void UpdateAmmoCount(string ammoType, int count)
+    {
+        // 화면에 총알 개수를 표시합니다.
+        Debug.Log(ammoType + " Count: " + count);
     }
     public int GetDamage()
     {

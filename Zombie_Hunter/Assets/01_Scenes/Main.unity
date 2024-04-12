@@ -1724,20 +1724,26 @@ MonoBehaviour:
   spearPrefab: {fileID: 2350366144217043346, guid: 8f2b838937bf3ce499fe912cc972a648, type: 3}
   bowPrefab: {fileID: 2282603997003878875, guid: 4b9d13ef294ef4b498abf6c7bca14421, type: 3}
   gunPrefab: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
+  bulletPrefab: {fileID: 0}
   arrowPrefab: {fileID: 1617419906277601818, guid: 2c925e2fb6d1cac428d146a97a34f6d3, type: 3}
   arrowcase: {fileID: 100000, guid: 3bf4320244258c0448bc784dfe221cc5, type: 3}
   weaponPosition: {fileID: 1465951671}
   arrowPosition: {fileID: 13468967}
   arrowcasePosition: {fileID: 13468968}
+  bulletPosition: {fileID: 0}
   currentWeapon: {fileID: 0}
   currentArrow: {fileID: 0}
   currentArrowcase: {fileID: 0}
+  currentBullet: {fileID: 0}
   spearAttack: 0
   bowAttack: 0
   gunAttack: 0
   Weaponname: 
   damage: 0
   Basic: {fileID: 85226277}
+  arrowcount: 15
+  bulletcount: 30
+  isReloading: 0
 --- !u!224 &1441343024 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1431409020685825636, guid: 0842524cd2733164fb4e5265b6c6cdd9, type: 3}
@@ -1848,6 +1854,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6710947565775574918, guid: 719a59915ae75094394e9a55bc76b19a, type: 3}
   m_PrefabInstance: {fileID: 13468966}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1485783249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485783250}
+  - component: {fileID: 1485783251}
+  m_Layer: 0
+  m_Name: DataMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485783250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485783249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485783251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485783249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117e619a0b115a44482dc876b82bb016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1505483716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3207,3 +3257,4 @@ SceneRoots:
   - {fileID: 1257759595}
   - {fileID: 1345971314}
   - {fileID: 13468966}
+  - {fileID: 1485783250}
