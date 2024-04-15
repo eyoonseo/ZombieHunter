@@ -24,6 +24,7 @@ public class AttackPlayer : MonoBehaviour
         {
             zombieController.zombieAnim.speed = originspeed;
             zombieController.zombieAnim.SetBool("ATTACK", true);
+
         }
 
     }

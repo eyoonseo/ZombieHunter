@@ -23,6 +23,8 @@ public class ZombieController : MonoBehaviour
     public GameObject bandagePrefab;
     public GameObject aidkitPrefab;
     public GameObject medicationPrefab;
+    public GameObject coinPrefab;
+    public GameObject tokenPrefab;
 
     public Slider Hpbar;
 
@@ -74,6 +76,10 @@ public class ZombieController : MonoBehaviour
         { 
             zombieAnim.SetTrigger("DIE");
             Destroy(zombie.gameObject);
+            playerController.playerLV += 10;
+
+            playerController.LVbar.value = playerController.playerLV;
+
             SpawnRandomItem();
         }
         else
@@ -97,15 +103,21 @@ public class ZombieController : MonoBehaviour
 
     public void SpawnRandomItem()
     {
+        // Define the range of items to spawn
+        int minItems = 2;
+        int maxItems = 4;
+
+        // Randomly determine the number of items to spawn within the range
+        int numItems = Random.Range(minItems, maxItems + 1);
         // 아이템 배열 생성
-        GameObject[] items = { potionPrefab, bandagePrefab, aidkitPrefab, medicationPrefab };
+        GameObject[] items = { potionPrefab, bandagePrefab, aidkitPrefab, medicationPrefab, coinPrefab, tokenPrefab };
 
-        // 랜덤한 아이템 선택
-        GameObject randomItem = items[Random.Range(0, items.Length)];
-
-        
-         
-        Instantiate(randomItem,zombie.transform.position, Quaternion.identity);
+        for (int i = 0; i < numItems; i++)
+        {
+            // 랜덤한 아이템 선택
+            GameObject randomItem = items[Random.Range(0, items.Length)];
+            Instantiate(randomItem, zombie.transform.position, Quaternion.identity);
+        }
     }
 
 

@@ -12,6 +12,11 @@ TagManager:
   - Bow
   - Spear
   - Gun
+  - Coin
+  - potion
+  - Bandage
+  - FirstAidKit
+  - Medication
   layers:
   - Default
   - TransparentFX

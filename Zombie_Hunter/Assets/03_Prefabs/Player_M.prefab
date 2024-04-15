@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447564287787664962}
   m_Layer: 0
-  m_Name: arrowpoint
+  m_Name: arrowGunpoint
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1111,7 +1111,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

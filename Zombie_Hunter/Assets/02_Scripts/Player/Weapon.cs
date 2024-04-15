@@ -26,6 +26,8 @@ public class Weapon : MonoBehaviour
     private int bowAttackIncrement = 5;
     private int gunAttackIncrement = 5;
 
+    public Animator playerAnimator;
+
     public int spearAttack;
     public int bowAttack;
     public int gunAttack;
@@ -46,6 +48,8 @@ public class Weapon : MonoBehaviour
         spearAttack = 10;
         bowAttack = 15;
         gunAttack = 15;
+
+        playerAnimator = GetComponent<Animator>();
     }
     void Update()
     {
@@ -53,41 +57,81 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha1))
         {
             SetWeapon(spearPrefab);
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("Spear", true);
+                }
+            }
+            if (playerAnimator != null)
+            {
+                playerAnimator.SetBool("Spear", false);
+            }
         }
 
         // 2번 키를 눌렀을 때 bow를 생성합니다.
         if (Input.GetKey(KeyCode.Alpha2))
         {
             SetWeapon(bowPrefab);
-            if (arrowcount > 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                currentArrow = Instantiate(arrowPrefab, arrowPosition);
-                arrowcount--;
-                UpdateAmmoCount("Arrow",arrowcount);
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("Bow", true);
+                }
+                if (arrowcount > 0)
+                {
+                    currentArrow = Instantiate(arrowPrefab, arrowPosition);
+                    arrowcount--;
+                    UpdateAmmoCount("Arrow", arrowcount);
+                }
+                else
+                {
+                    ReloadAmmo("Arrow");
+                }
             }
-            else
+            if (playerAnimator != null)
             {
-                ReloadAmmo("Arrow");
+                playerAnimator.SetBool("Bow", false);
             }
-            currentArrowcase=Instantiate(arrowcase, arrowcasePosition);
+            currentArrowcase =Instantiate(arrowcase, arrowcasePosition);
         }           
         // 3번 키를 눌렀을 때 gun을 생성합니다.
         if (Input.GetKey(KeyCode.Alpha3))
         {
             SetWeapon(gunPrefab);
-            if (bulletcount > 0)
+            if (Input.GetMouseButtonDown(0))
             {
-                currentBullet = Instantiate(bulletPrefab, bulletPosition);
-                bulletcount--;
-                UpdateAmmoCount("Bullet", arrowcount);
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("Gun", true);
+                }
+                if (bulletcount > 0)
+                {
+                    currentBullet = Instantiate(bulletPrefab, bulletPosition);
+                    bulletcount--;
+                    UpdateAmmoCount("Bullet", arrowcount);
+                }
+                else
+                {
+                    ReloadAmmo("Bullet");
+                }
             }
-            else
+            if (playerAnimator != null)
             {
-                ReloadAmmo("Bullet");
+                playerAnimator.SetBool("Gun", false);
             }
         }
-
-        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentWeapon != null)
+            {
+                string weaponType = currentWeapon.tag;
+                ReloadAmmo(weaponType);
+            }
+        }
+ 
     }
     private void OnTriggerEnter(Collider other)
     {
