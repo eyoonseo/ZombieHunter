@@ -21,6 +21,7 @@ public class GameMgr : MonoBehaviour
     public GameObject Lvpanel;
     public GameObject Weaponpanel;
     public GameObject escapeGatePrefab;
+    public PlayerController playercontroller;
 
     public Slider HPbar;
     public Slider LVbar;
@@ -71,6 +72,7 @@ public class GameMgr : MonoBehaviour
             // 패널이 활성화되어 있다면 비활성화하고, 비활성화되어 있다면 활성화합니다.
             TogglePause();
 
+
         }
        
 
@@ -104,36 +106,44 @@ public class GameMgr : MonoBehaviour
 
         if (LVbar.value >= LVbar.maxValue)
         {
-            int currentLV = int.Parse(LV.text);
-            currentLV++;
-            LV.text = "LV." + currentLV.ToString();
-
+            int currentLV;
+            if (int.TryParse(LV.text.Replace("LV.", ""), out currentLV))
+            {
+                currentLV++;
+                LV.text = "LV." + currentLV.ToString();
+            }
+            else 
+            {
+                Debug.LogError("LV.text cannot be parsed to integer.");
+            }
             LVbar.value = 0f;
             LVbar.maxValue += 20; // LVbar의 최대 값 증가
         }
     }
     void TogglePause()
     {
-        if (ESCpanel.activeSelf) // ESC 패널이 활성화되어 있는 경우
+        if (ESCpanel.activeSelf) 
         {
-            ESCpanel.SetActive(false); // ESC 패널을 비활성화
-            Time.timeScale = 1f; // 게임 시간을 다시 진행
+            
+            ESCpanel.SetActive(false); 
+            Time.timeScale = 1f;
         }
-        else // ESC 패널이 비활성화되어 있는 경우
+        else 
         {
-            ESCpanel.SetActive(true); // ESC 패널을 활성화
-            Time.timeScale = 0f; // 게임 시간을 정지
+            ESCpanel.SetActive(true); 
+            Time.timeScale = 0f;
+           
         }
     }
     public void OnMainButtonClick()
     {
-        ESCpanel.SetActive(false);// ESC 패널 비활성화
-        EXITpanel.SetActive(true); // Exit 패널 활성화
+        ESCpanel.SetActive(false);
+        EXITpanel.SetActive(true); 
     }
     public void  BacktoESCpanel()
     {
-        ESCpanel.SetActive(true);// ESC 패널 비활성화
-        EXITpanel.SetActive(false); // Exit 패널 활성화
+        ESCpanel.SetActive(true);
+        EXITpanel.SetActive(false); 
     }
     public void Option()
     {
@@ -163,7 +173,7 @@ public class GameMgr : MonoBehaviour
     }
     public void ReturnToStartScene()
     {
-        SceneManager.LoadScene("01_Start"); // "StartScene"은 첫 시작 화면의 씬 이름입니다. 적절히 변경해야 합니다.
+        SceneManager.LoadScene("01_Start"); 
     }
 
     void CreateEscapeGate()

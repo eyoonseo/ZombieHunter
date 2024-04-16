@@ -12,7 +12,6 @@ public class ZombieController : MonoBehaviour
     public int virus = 5;
     public float rotationSpeed = 100;
     private PlayerController playerController;
-    
 
     public int attackPower;
     public float attackCurTime;
@@ -32,7 +31,7 @@ public class ZombieController : MonoBehaviour
     FollowPlayer followPlayer;
    
     public Animator zombieAnim;//좀비 상태에 따른 애니메이터
-    //private bool isDead = false;
+    private bool isDead = false;
 
 
 
@@ -70,35 +69,86 @@ public class ZombieController : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (zombieHP <= 0)
+    //    { 
+    //        zombieAnim.SetTrigger("DIE");
+    //        Destroy(zombie.gameObject);
+    //        playerController.playerLV += 10;
+
+    //        playerController.LVbar.value = playerController.playerLV;
+
+    //        SpawnRandomItem();
+    //    }
+    //    //else
+    //    //{
+    //    //    switch (other.gameObject.tag)
+    //    //    {
+    //    //        case "Spear":
+    //    //            zombieHP -= 10;
+    //    //            break;
+    //    //        case "Bow":
+    //    //            zombieHP -= 15;
+    //    //            break;
+    //    //        case "Gun":
+    //    //            zombieHP -= 20;
+    //    //            break;
+
+    //    //    }
+    //    //}
+    
+    //}
+    public void DamageBySpear(int spear)
     {
-        if (zombieHP <= 0)
-        { 
-            zombieAnim.SetTrigger("DIE");
-            Destroy(zombie.gameObject);
-            playerController.playerLV += 10;
-
-            playerController.LVbar.value = playerController.playerLV;
-
-            SpawnRandomItem();
-        }
-        else
+        if (isDead == false)
         {
-            switch (other.gameObject.tag)
+            zombieHP -= spear;
+            if (zombieHP <= 0)
             {
-                case "Spear":
-                    zombieHP -= 10;
-                    break;
-                case "Bow":
-                    zombieHP -= 15;
-                    break;
-                case "Gun":
-                    zombieHP -= 20;
-                    break;
-
+                isDead = true;
+                //Instantiate(deadEffect, transform.position, transform.rotation);
+                //Instantiate(DeadSound, transform.position, transform.rotation);
+                zombieAnim.SetTrigger("DIE");
+                playerController.playerLV += 10;
+                playerController.LVbar.value = playerController.playerLV;
+                Destroy(zombie.gameObject);
             }
         }
-    
+    }
+    public void DamageByGun(int gun)
+    {
+        if (isDead == false)
+        {
+            zombieHP -= gun;
+            if (zombieHP <= 0)
+            {
+                isDead = true;
+                //Instantiate(deadEffect, transform.position, transform.rotation);
+                //Instantiate(DeadSound, transform.position, transform.rotation);
+                zombieAnim.SetTrigger("DIE");
+                playerController.playerLV += 10;
+                playerController.LVbar.value = playerController.playerLV;
+                Destroy(zombie.gameObject);
+            }
+        }
+    }
+    public void DamageByBow(int bow)
+    {
+        if (isDead == false)
+        {
+            zombieHP -= bow;
+            if (zombieHP <= 0)
+            {
+                isDead = true;
+                //Instantiate(deadEffect, transform.position, transform.rotation);
+                //Instantiate(DeadSound, transform.position, transform.rotation);
+                zombieAnim.SetTrigger("DIE");
+                playerController.playerLV += 10;
+                playerController.LVbar.value = playerController.playerLV;
+                Destroy(zombie.gameObject);
+            }
+        }
     }
 
     public void SpawnRandomItem()

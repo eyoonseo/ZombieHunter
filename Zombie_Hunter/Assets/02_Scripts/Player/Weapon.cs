@@ -41,7 +41,6 @@ public class Weapon : MonoBehaviour
     public int arrowcount = 15;
     public int bulletcount = 30;
     public bool isReloading = false;
-
     private void Start()
     {
         // 무기들의 초기 공격력을 설정합니다.
@@ -57,7 +56,7 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha1))
         {
             SetWeapon(spearPrefab);
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (playerAnimator != null)
                 {
@@ -74,7 +73,7 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha2))
         {
             SetWeapon(bowPrefab);
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (playerAnimator != null)
                 {
@@ -101,11 +100,12 @@ public class Weapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha3))
         {
             SetWeapon(gunPrefab);
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (playerAnimator != null)
                 {
                     playerAnimator.SetBool("Gun", true);
+
                 }
                 if (bulletcount > 0)
                 {
@@ -136,7 +136,7 @@ public class Weapon : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Player와 충돌한 오브젝트가 coin이라면
-        if (other.CompareTag("coin"))
+        if (other.gameObject.CompareTag("token"))
         {
             // 해당 coin을 파괴합니다.
             Destroy(other.gameObject);
@@ -144,7 +144,7 @@ public class Weapon : MonoBehaviour
             // 무기의 공격력을 업그레이드합니다.
             UpgradeWeaponAttack();
         }
-        if (other.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -152,13 +152,19 @@ public class Weapon : MonoBehaviour
                 bulletcount++;
             }
         }
-        if (other.CompareTag("Arrow"))
+        if (other.gameObject.CompareTag("Arrow"))
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Destroy(other.gameObject);
                 arrowcount++;
             }
+        }
+        if (other.gameObject.CompareTag("Zombie")|| other.gameObject.CompareTag("Boss"))
+        {
+            other.gameObject.GetComponent<ZombieController>()?.DamageBySpear(spearAttack);
+            other.gameObject.GetComponent<ZombieController>()?.DamageByGun(gunAttack);
+            other.gameObject.GetComponent<ZombieController>()?.DamageByBow(bowAttack);
         }
     }
 

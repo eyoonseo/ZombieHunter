@@ -32,7 +32,7 @@ public class ZombieMaker : MonoBehaviour
 
     public void RandomCoolTime()
     {
-        int rnd = Random.Range(15, 20); //int는 15이상 20미만,float은 15이상 20이하 
+        int rnd = Random.Range(20, 25); //int는 15이상 20미만,float은 15이상 20이하 
         coolTime = rnd;
     }
 

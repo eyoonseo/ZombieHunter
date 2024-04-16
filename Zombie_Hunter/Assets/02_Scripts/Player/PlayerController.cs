@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public int playerLV = 0;
     public int maxHP = 100;
     public int posion = 0;
+    public int maxPosion = 100;
 
     public List<Weapon> weapons; // 무기를 저장할 리스트(List) 변수 선언
     //private int currentWeaponIndex = 0; // 현재 선택된 무기의 인덱스를 나타내는 변수 선언 및 초기화
@@ -84,40 +85,80 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, 0, zlimit);
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            switch (tag)
-            {
-                case "Spear":
-                    playerAnimator.SetBool("Spear", true);
-                    break;
-                case "Bow":
-                    playerAnimator.SetBool("Bow", true);
-                    break;
-                case "Gun":
-                    playerAnimator.SetBool("Gun", true);
-                    break;
-                default:
-                    break;
-            }
 
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    switch (tag)
+        //    {
+        //        case "Spear":
+        //            playerAnimator.SetBool("Spear", true);
+        //            break;
+        //        case "Bow":
+        //            playerAnimator.SetBool("Bow", true);
+        //            break;
+        //        case "Gun":
+        //            playerAnimator.SetBool("Gun", true);
+        //            break;
+        //        default:
+        //            break;
+        //    }
+
+        //}
 
 
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "zombie")
-        {
-            playerHP -= 10;
-            posion += 5;
+    //    if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        switch (other.gameObject.tag)
+    //        {
+    //            case "Spear":
+    //                playerAnimator.SetBool("Spear", true);
+    //                break;
+    //            case "Bow":
+    //                playerAnimator.SetBool("Bow", true);
+    //                break;
+    //            case "Gun":
+    //                playerAnimator.SetBool("Gun", true);
+    //                break;
+    //            default:
+    //                break;
+    //        }
 
-            HPbar.value = playerHP;
-            Posionbar.value = posion;
+    //    }
+        if (other.gameObject.tag == "Zombie")
+        {
+            int zombiedmg = 10;
+            int zombieposion = 5;
+            playerHP -= zombiedmg;
+            posion += zombieposion;
+
+            HPbar.value -= (zombiedmg / playerHP);
+            Posionbar.value += (zombieposion / maxPosion);
             if (playerHP <= 0 || posion >= 100)
             {
                 Debug.Log("##### GAME OVER #####");
                 GameOverPanel.SetActive(true);
+                gameObject.SetActive(false);
+                Time.timeScale = 0f;
+                //gameMgr.isGameOver = true;
+            }
+        }
+        if (other.gameObject.tag == "Boss")
+        {
+            int bossdmg = 20;
+            int bossposion = 15;
+            playerHP -= bossdmg;
+            posion += bossposion;
+
+            HPbar.value -= (bossdmg / playerHP);
+            Posionbar.value += (bossposion / maxPosion);
+            if (playerHP <= 0 || posion >= maxPosion)
+            {
+                Debug.Log("##### GAME OVER #####");
+                GameOverPanel.SetActive(true);
+                gameObject.SetActive(false);
                 Time.timeScale = 0f;
                 //gameMgr.isGameOver = true;
             }
@@ -211,10 +252,12 @@ public class PlayerController : MonoBehaviour
             HPbar.value = playerHP;
         }
     }
-        void GameOver()
-        {
-            Debug.Log("게임 오버!");
-            // 여기에 게임 오버 상태에 관련된 처리를 추가할 수 있습니다.
-        }
+        //void GameOver()
+        //{
+        //    Debug.Log("##### GAME OVER #####");
+        //    GameOverPanel.SetActive(true);
+        //    gameObject.SetActive(false);
+        //    Time.timeScale = 0f;
+        //}
     
 }

@@ -17,6 +17,7 @@ TagManager:
   - Bandage
   - FirstAidKit
   - Medication
+  - token
   layers:
   - Default
   - TransparentFX
