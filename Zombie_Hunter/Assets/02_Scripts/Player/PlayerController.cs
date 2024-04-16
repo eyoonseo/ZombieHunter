@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static ZombieController;
+using Slider = UnityEngine.UI.Slider;
 
 public class PlayerController : MonoBehaviour
 {
     public GameObject Player;
     public GameObject GameOverPanel;
+    public GameObject GameClearPanel;
     public float moveSpeed = 10f;
     private float xlimit = 149;
     private float zlimit = 149;
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public Text AidKitcount;
     public Text Medicationcount;
     public Text Coincount;
+    
 
     public int playerPower;
     public ZombieController zombieController;
@@ -40,6 +44,24 @@ public class PlayerController : MonoBehaviour
         zombieController = GetComponent<ZombieController>();
         playerAnimator = GetComponentInChildren<Animator>(); //자식객체  
         Coincount.text = ":" + "000";
+        if (HPbar != null)
+        {
+            HPbar.maxValue = maxHP;
+            HPbar.value = playerHP;
+        }
+        else
+        {
+            Debug.LogWarning("HPSlider is not assigned!");
+        }
+        if (Posionbar != null)
+        {
+            Posionbar.maxValue = maxPosion;
+            Posionbar.value = posion;
+        }
+        else
+        {
+            Debug.LogWarning("HPSlider is not assigned!");
+        }
     }
 
 
@@ -127,39 +149,32 @@ public class PlayerController : MonoBehaviour
     //        }
 
     //    }
-        if (other.gameObject.tag == "Zombie")
+        if (other.CompareTag("Zombie"))
         {
+            
             int zombiedmg = 10;
             int zombieposion = 5;
             playerHP -= zombiedmg;
             posion += zombieposion;
 
-            HPbar.value -= (zombiedmg / playerHP);
-            Posionbar.value += (zombieposion / maxPosion);
+            UpdateUI();
             if (playerHP <= 0 || posion >= 100)
             {
-                Debug.Log("##### GAME OVER #####");
-                GameOverPanel.SetActive(true);
-                gameObject.SetActive(false);
-                Time.timeScale = 0f;
+                GameOver();
                 //gameMgr.isGameOver = true;
             }
         }
-        if (other.gameObject.tag == "Boss")
+        if (other.CompareTag("Boss"))
         {
             int bossdmg = 20;
             int bossposion = 15;
             playerHP -= bossdmg;
             posion += bossposion;
 
-            HPbar.value -= (bossdmg / playerHP);
-            Posionbar.value += (bossposion / maxPosion);
+            UpdateUI();
             if (playerHP <= 0 || posion >= maxPosion)
             {
-                Debug.Log("##### GAME OVER #####");
-                GameOverPanel.SetActive(true);
-                gameObject.SetActive(false);
-                Time.timeScale = 0f;
+                GameOver();
                 //gameMgr.isGameOver = true;
             }
         }
@@ -185,7 +200,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (other.gameObject.tag == "potion")
+        if (other.CompareTag("potion"))
         {
             if (posion <= 15)
             {
@@ -197,7 +212,19 @@ public class PlayerController : MonoBehaviour
             }
             Destroy(other.gameObject);
         }
+        if (other.CompareTag ("EXIT"))
+        {
+            Debug.Log("Game Clear");
+            GameClearPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
 
+    }
+
+    private void UpdateUI()
+    {
+        HPbar.value = (float)playerHP / 100f; // HP 슬라이더 갱신
+        Posionbar.value = (float)posion / 100f; // 독 중독 게이지 슬라이더 갱신
     }
     //void Attack()
     //{
@@ -252,12 +279,12 @@ public class PlayerController : MonoBehaviour
             HPbar.value = playerHP;
         }
     }
-        //void GameOver()
-        //{
-        //    Debug.Log("##### GAME OVER #####");
-        //    GameOverPanel.SetActive(true);
-        //    gameObject.SetActive(false);
-        //    Time.timeScale = 0f;
-        //}
-    
+    void GameOver()
+    {
+        Debug.Log("##### GAME OVER #####");
+        GameOverPanel.SetActive(true);
+        gameObject.SetActive(false);
+        Time.timeScale = 0f;
+    }
+
 }

@@ -13,6 +13,9 @@ public class Weapon : MonoBehaviour
     public GameObject arrowPrefab;
     public GameObject arrowcase;
 
+    public GameObject zombie;
+    public GameObject bloodEffect;
+
     public Transform weaponPosition;
     public Transform arrowPosition;
     public Transform arrowcasePosition;
@@ -21,17 +24,18 @@ public class Weapon : MonoBehaviour
     public GameObject currentArrow;
     public GameObject currentArrowcase;
     public GameObject currentBullet;
+    
 
     private int spearAttackIncrement = 5;
     private int bowAttackIncrement = 5;
     private int gunAttackIncrement = 5;
 
     public Animator playerAnimator;
+    public ZombieController zombieController;
 
     public int spearAttack;
     public int bowAttack;
     public int gunAttack;
-
     private int upgradeCount = 0;
 
     public string Weaponname;
@@ -41,88 +45,86 @@ public class Weapon : MonoBehaviour
     public int arrowcount = 15;
     public int bulletcount = 30;
     public bool isReloading = false;
+    public bool isAttacking = false;
     private void Start()
     {
         // 무기들의 초기 공격력을 설정합니다.
         spearAttack = 10;
         bowAttack = 15;
         gunAttack = 15;
-
-        playerAnimator = GetComponent<Animator>();
     }
+
     void Update()
     {
         // 1번 키를 눌렀을 때 spear를 생성합니다.
         if (Input.GetKey(KeyCode.Alpha1))
         {
             SetWeapon(spearPrefab);
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (playerAnimator != null)
-                {
-                    playerAnimator.SetBool("Spear", true);
-                }
-            }
             if (playerAnimator != null)
             {
-                playerAnimator.SetBool("Spear", false);
+               playerAnimator.SetBool("Spear", false);  
             }
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            if (!isAttacking) // 한 번만 공격하도록 확인
+            {
+                StartCoroutine(PlayAndDisableAnimation(2f));
+                isAttacking = true; // 공격 중으로 플래그 설정
+            }
+        }
+        
 
         // 2번 키를 눌렀을 때 bow를 생성합니다.
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            SetWeapon(bowPrefab);
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (playerAnimator != null)
-                {
-                    playerAnimator.SetBool("Bow", true);
-                }
-                if (arrowcount > 0)
-                {
-                    currentArrow = Instantiate(arrowPrefab, arrowPosition);
-                    arrowcount--;
-                    UpdateAmmoCount("Arrow", arrowcount);
-                }
-                else
-                {
-                    ReloadAmmo("Arrow");
-                }
-            }
-            if (playerAnimator != null)
-            {
-                playerAnimator.SetBool("Bow", false);
-            }
-            currentArrowcase =Instantiate(arrowcase, arrowcasePosition);
-        }           
-        // 3번 키를 눌렀을 때 gun을 생성합니다.
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            SetWeapon(gunPrefab);
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (playerAnimator != null)
-                {
-                    playerAnimator.SetBool("Gun", true);
-
-                }
-                if (bulletcount > 0)
-                {
-                    currentBullet = Instantiate(bulletPrefab, bulletPosition);
-                    bulletcount--;
-                    UpdateAmmoCount("Bullet", arrowcount);
-                }
-                else
-                {
-                    ReloadAmmo("Bullet");
-                }
-            }
-            if (playerAnimator != null)
-            {
-                playerAnimator.SetBool("Gun", false);
-            }
-        }
+        //if (Input.GetKey(KeyCode.Alpha2))
+        //{
+        //    SetWeapon(bowPrefab);
+        //    if (playerAnimator != null)
+        //    {
+        //        playerAnimator.SetBool("Bow", false);
+        //    }
+        //}
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //        playerAnimator.SetBool("Bow", true);
+        //        zombieController.zombieHP -= bowAttack;
+        //        if (arrowcount > 0)
+        //        {
+        //            currentArrow = Instantiate(arrowPrefab, arrowPosition);
+        //            arrowcount--;
+        //            UpdateAmmoCount("Arrow", arrowcount);
+        //        }
+        //        else
+        //        {
+        //            ReloadAmmo("Arrow");
+        //        }
+        //    currentArrowcase = Instantiate(arrowcase, arrowcasePosition);
+        //}
+        //// 3번 키를 눌렀을 때 gun을 생성합니다.
+        //if (Input.GetKey(KeyCode.Alpha3))
+        //{
+        //    SetWeapon(gunPrefab);
+        //    if (playerAnimator != null)
+        //    {
+        //        playerAnimator.SetBool("Gun", false);
+        //    }
+        //}
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //        playerAnimator.SetBool("Gun", true);
+        //        zombieController.zombieHP -= gunAttack;
+        //        if (bulletcount > 0)
+        //        {
+        //            currentBullet = Instantiate(bulletPrefab, bulletPosition);
+        //            bulletcount--;
+        //            UpdateAmmoCount("Bullet", arrowcount);
+        //        }
+        //        else
+        //        {
+        //            ReloadAmmo("Bullet");
+        //        }
+        //}
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (currentWeapon != null)
@@ -133,6 +135,34 @@ public class Weapon : MonoBehaviour
         }
  
     }
+    private IEnumerator PlayAndDisableAnimation(float duration)
+    {
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool("Spear", true); // 애니메이션 활성화   
+            yield return new WaitForSeconds(duration); // 일정 시간 대기
+            playerAnimator.SetBool("Spear", false); // 애니메이션 비활성화  
+        }
+    }
+    
+
+
+
+private void OnCollisionEnter(Collision collision)
+{
+    if (collision.gameObject.CompareTag("Zombie"))
+    {
+        // 피 이펙트를 생성할 위치 설정 (좀비와 충돌 지점의 중간 지점)
+        Vector3 bloodEffectPosition = (transform.position + collision.transform.position) / 2f;
+        // 피 이펙트를 생성
+        GameObject BloodEffect = Instantiate(bloodEffect, bloodEffectPosition, Quaternion.identity);
+        // 피 이펙트를 좀비 방향으로 회전시킴
+        bloodEffect.transform.LookAt(collision.transform);
+        // 피 이펙트 생성 후 몇 초 후에 제거
+        Destroy(bloodEffect, 2f);
+    }
+ }
+
     private void OnTriggerEnter(Collider other)
     {
         // Player와 충돌한 오브젝트가 coin이라면
@@ -160,12 +190,7 @@ public class Weapon : MonoBehaviour
                 arrowcount++;
             }
         }
-        if (other.gameObject.CompareTag("Zombie")|| other.gameObject.CompareTag("Boss"))
-        {
-            other.gameObject.GetComponent<ZombieController>()?.DamageBySpear(spearAttack);
-            other.gameObject.GetComponent<ZombieController>()?.DamageByGun(gunAttack);
-            other.gameObject.GetComponent<ZombieController>()?.DamageByBow(bowAttack);
-        }
+        
     }
 
 

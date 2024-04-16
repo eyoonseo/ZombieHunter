@@ -18,6 +18,7 @@ TagManager:
   - FirstAidKit
   - Medication
   - token
+  - EXIT
   layers:
   - Default
   - TransparentFX

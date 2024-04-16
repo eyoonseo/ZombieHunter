@@ -233,6 +233,7 @@ MonoBehaviour:
   medicationPrefab: {fileID: 1985338178271116, guid: 48ec186542777474bb236dff1694340c, type: 3}
   coinPrefab: {fileID: 917681705832834269, guid: 89bd71e2337bb9e44ad1f507ddd9a923, type: 3}
   tokenPrefab: {fileID: 6314779756604883744, guid: 846e7ba738aa5d84cbfa0b56b802557b, type: 3}
+  bloodEffect: {fileID: 3915702402362212972, guid: f1d14858fafc68d4c98010aa26b4470a, type: 3}
   Hpbar: {fileID: 8612222820035853781, guid: 0842524cd2733164fb4e5265b6c6cdd9, type: 3}
   zombieAnim: {fileID: 14468363898721305}
   minX: -149
@@ -530,10 +531,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.28410482
+  m_Radius: 0.28254807
   m_Height: 1.2119031
   m_Direction: 1
-  m_Center: {x: -0.009897709, y: 0.43097842, z: -0.0069450736}
+  m_Center: {x: -0.009897709, y: 0.43097842, z: -0.008501828}
 --- !u!4 &103405318135490131 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4257605397364450, guid: a8145fd98e506094980d05080bde9072, type: 3}

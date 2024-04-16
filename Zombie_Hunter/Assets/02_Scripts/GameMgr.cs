@@ -35,7 +35,6 @@ public class GameMgr : MonoBehaviour
 
     private int curHour = 0;
     private int daysPassed = 0;
-    private bool escapeGateCreated;
 
     void Start()
     {
@@ -45,7 +44,6 @@ public class GameMgr : MonoBehaviour
         Weaponpanel.SetActive(true);
         Timepanel.SetActive(true);
         Windowpanel.SetActive(true);
-        escapeGateCreated = false;
 
         curHour = 0;
         daysPassed = 1;
@@ -91,12 +89,8 @@ public class GameMgr : MonoBehaviour
                 if (daysPassed == 7)
                 {
                     CreateEscapeGate();
-                    escapeGateCreated = true;
-                }
-                else
-                {
-                    escapeGateCreated = false;
-                }
+                    
+                }                
             }
 
         }
@@ -173,14 +167,18 @@ public class GameMgr : MonoBehaviour
     }
     public void ReturnToStartScene()
     {
-        SceneManager.LoadScene("01_Start"); 
+        SceneManager.LoadScene(0); 
+    }
+    public void ReStartScene()
+    {
+        SceneManager.LoadScene(4);
     }
 
     void CreateEscapeGate()
     {
         float randomX = Random.Range(-30f, 30f);
         float randomZ = Random.Range(-30f, 30f);
-        Vector3 randomPosition = new Vector3(randomX, 0f, randomZ);
+        Vector3 randomPosition = new Vector3(randomX, -1f, randomZ);
         Instantiate(escapeGatePrefab, randomPosition, Quaternion.identity);
     }
 
